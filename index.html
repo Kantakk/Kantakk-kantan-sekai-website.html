@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>かんたんなせかいのホームページ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro', 'メイリオ', Meiryo, cursive, sans-serif;
+            background: linear-gradient(45deg, #FFE5EC 0%, #FFF0F5 25%, #E0F4FF 50%, #F0E5FF 75%, #FFE5EC 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #FF6B9D 0%, #FF1744 100%);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #4FC3F7 0%, #0091EA 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: 1s;
+        }
+
+        .shape:nth-child(3) {
+            top: 30%;
+            left: 70%;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #FFD54F 0%, #FFA000 100%);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(4) {
+            top: 70%;
+            left: 15%;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, #BA68C8 0%, #7B1FA2 100%);
+            border-radius: 50%;
+            animation-delay: 0.5s;
+        }
+
+        .shape:nth-child(5) {
+            top: 20%;
+            left: 40%;
+            width: 45px;
+            height: 45px;
+            background: radial-gradient(circle, #81C784 0%, #2E7D32 100%);
+            border-radius: 50%;
+            animation-delay: 1.5s;
+        }
+
+        header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: transparent;
+        }
+
+        h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #FF1744;
+            text-shadow: 
+                4px 4px 0px #FFD54F,
+                8px 8px 0px #4FC3F7,
+                12px 12px 0px #BA68C8;
+            animation: bounce 2s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #5D4E99;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .instagram-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B9D, #FFD54F, #4FC3F7);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        .instagram-link:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 107, 157, 0.6);
+        }
+
+        .about {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 3px solid #FFD54F;
+        }
+
+        .about h2 {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            color: #FF1744;
+            text-shadow: 2px 2px 0px #4FC3F7;
+        }
+
+        .about p {
+            font-size: 1.2em;
+            line-height: 2;
+            color: #555;
+        }
+
+        .gallery {
+            position: relative;
+            z-index: 10;
+            max-width: 1300px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .gallery h2 {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 50px;
+            color: #BA68C8;
+            text-shadow: 3px 3px 0px #FFD54F;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid;
+            border-image: linear-gradient(135deg, #FF6B9D, #FFD54F, #4FC3F7, #BA68C8) 1;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .gallery-item:nth-child(odd) {
+            animation-delay: 0.5s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) rotate(2deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder {
+            color: #BA68C8;
+            font-size: 1em;
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(186,104,200,0.95) 0%, rgba(255,107,157,0.95) 100%);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: bounce 1s ease-in-out;
+        }
+
+        .close {
+            position: absolute;
+            top: 30px;
+            right: 45px;
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .close:hover {
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            color: #666;
+            margin-top: 80px;
+            border-top: 5px solid #FFD54F;
+        }
+
+        footer p {
+            font-size: 1.1em;
+        }
+
+        footer a {
+            color: #FF1744;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #BA68C8;
+        }
+
+        .edit-instructions {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 243, 205, 0.9);
+            border-left: 8px solid #FFA000;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .edit-instructions h3 {
+            color: #F57C00;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .edit-instructions p {
+            color: #856404;
+            font-size: 1em;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+                text-shadow: 
+                    2px 2px 0px #FFD54F,
+                    4px 4px 0px #4FC3F7,
+                    6px 6px 0px #BA68C8;
+            }
+
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 20px;
+            }
+
+            .close {
+                top: 15px;
+                right: 25px;
+                font-size: 35px;
+            }
+
+            .about, .edit-instructions {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <header>
+        <h1>かんたんなせかい</h1>
+        <p class="subtitle">ちょっと不思議で、すこし変で、でもなんだか愛おしい。<br>そんなキャラクターたちが暮らす、かんたんなせかいへようこそ。</p>
+        <a href="https://www.instagram.com/kantan.na.sekai?igsh=YWhsaWtqNmtvbmRz&utm_source=qr" target="_blank" class="instagram-link">📸 Instagramを見る</a>
+    </header>
+
+    <section class="about">
+        <h2>About</h2>
+        <p>
+            「かんたんなせかい」は、色とりどりのキャラクターたちが暮らす世界。<br>
+            彼らはみんな、ちょっとだけ変わっていて、ちょっとだけおかしくて、<br>
+            でもそれがとっても魅力的。<br><br>
+            見ているだけで、なんだか心がほっこりする。<br>
+            そんなキャラクターたちを、少しずつ描いています。
+        </p>
+    </section>
+
+    <section class="gallery">
+        <h2>Gallery</h2>
+        
+        <div class="edit-instructions">
+            <h3>📝 画像の差し替え方法</h3>
+            <p>
+                下のコードの「IMAGE_URL_HERE」の部分を、あなたの画像URLに置き換えてください。<br>
+                Instagramの画像を使う場合は、投稿を開く→右クリック→「画像アドレスをコピー」でURLを取得できます。<br>
+                または、画像をアップロードできるサービス（Imgur、Cloudinaryなど）を使ってURLを取得してください。
+            </p>
+        </div>
+
+        <div class="grid" id="gallery-grid">
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター2" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター3" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター5" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター6" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター7" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター8" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター9" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター11" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal(this)">
+                <img src="IMAGE_URL_HERE" alt="キャラクター12" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display: none;">🎨 画像を追加してね!</div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-img">
+    </div>
+
+    <footer>
+        <p>✨ &copy; 2026 かんたんなせかい. All rights reserved. ✨</p>
+        <p style="margin-top: 15px;">
+            <a href="https://www.instagram.com/kantan.na.sekai?igsh=YWhsaWtqNmtvbmRz&utm_source=qr" target="_blank">Instagram</a>
+        </p>
+    </footer>
+
+    <script>
+        function openModal(element) {
+            const img = element.querySelector('img');
+            if (img && img.style.display !== 'none') {
+                const modal = document.getElementById('modal');
+                const modalImg = document.getElementById('modal-img');
+                modal.classList.add('active');
+                modalImg.src = img.src;
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
