@@ -355,29 +355,36 @@
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5em;
-                text-shadow: 
-                    2px 2px 0px #FFD54F,
-                    4px 4px 0px #4FC3F7,
-                    6px 6px 0px #BA68C8;
-            }
+    h1 {
+        font-size: 2.5em;
+        text-shadow: 
+            2px 2px 0px #FFD54F,
+            4px 4px 0px #4FC3F7,
+            6px 6px 0px #BA68C8;
+    }
 
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 20px;
-            }
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+    }
 
-            .close {
-                top: 15px;
-                right: 25px;
-                font-size: 35px;
-            }
+    /* ★ここを追加：画像が消えないようにする設定 */
+    .gallery-item img {
+        display: block !important; /* 万が一 display:none が効いても強制表示 */
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 
-            .about, .edit-instructions {
-                padding: 25px;
-            }
-        }
+    .close {
+        top: 15px;
+        right: 25px;
+        font-size: 35px;
+    }
+
+    .about, .edit-instructions {
+        padding: 25px;
+    }
+}
         /* お問い合わせフォームのスタイル */
 .contact-container {
     position: relative;
@@ -638,6 +645,7 @@ function hideContactForm() {
 </body>
 
 </html>
+
 
 
 
