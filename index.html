@@ -375,6 +375,92 @@
                 padding: 25px;
             }
         }
+        /* お問い合わせフォームのスタイル */
+.contact-container {
+    position: relative;
+    z-index: 10;
+    max-width: 700px;
+    margin: 80px auto;
+    padding: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 40px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    border: 5px solid #FFD54F;
+}
+
+.contact-form {
+    margin-top: 30px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.1em;
+    color: #BA68C8;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 3px solid #4FC3F7;
+    border-radius: 15px;
+    font-size: 1em;
+    font-family: inherit;
+    background: white;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #FF6B9D;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #FF6B9D, #FFD54F, #4FC3F7);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.4);
+}
+
+.submit-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 107, 157, 0.6);
+}
+
+.back-button {
+    background: rgba(186, 104, 200, 0.2);
+    border: 2px solid #BA68C8;
+    color: #BA68C8;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 20px;
+}
+
+.back-button:hover {
+    background: rgba(186, 104, 200, 0.4);
+    transform: translateX(-5px);
+}
     </style>
 </head>
 <body>
@@ -469,7 +555,36 @@
             </div>
         </div>
     </section>
-
+<!-- お問い合わせフォーム（ギャラリーの後、モーダルの前に追加） -->
+<section id="contact-section" style="display: none;">
+    <div class="contact-container">
+        <button class="back-button" onclick="hideContactForm()">← ギャラリーに戻る</button>
+        <h2 style="text-align: center; font-size: 3em; color: #FF1744; text-shadow: 3px 3px 0px #FFD54F; margin-bottom: 30px;">お問い合わせ</h2>
+        <form action="https://formspree.io/f/xykkplej" method="POST" class="contact-form">
+            <div class="form-group">
+                <label for="name">お名前 *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">メールアドレス *</label>
+                <input type="email" id="email" name="_replyto" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">件名</label>
+                <input type="text" id="subject" name="subject">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">メッセージ *</label>
+                <textarea id="message" name="message" rows="6" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-button">送信する ✨</button>
+        </form>
+    </div>
+</section>
     <div id="modal" class="modal" onclick="closeModal()">
         <span class="close">&times;</span>
         <img class="modal-content" id="modal-img">
@@ -478,7 +593,7 @@
     <footer>
         <p>✨ &copy; 2026 かんたんなせかい. All rights reserved. ✨</p>
         <p style="margin-top: 15px;">
-            <a href="https://www.instagram.com/kantan.na.sekai?igsh=YWhsaWtqNmtvbmRz&utm_source=qr" target="_blank">Instagram</a>
+            <a href="#contact" class="instagram-link" onclick="showContactForm(); return false;">✉️ お問い合わせ</a>
         </p>
     </footer>
 
@@ -503,8 +618,22 @@
                 closeModal();
             }
         });
+        function showContactForm() {
+    document.querySelector('.gallery').style.display = 'none';
+    document.querySelector('.about').style.display = 'none';
+    document.getElementById('contact-section').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function hideContactForm() {
+    document.querySelector('.gallery').style.display = 'block';
+    document.querySelector('.about').style.display = 'block';
+    document.getElementById('contact-section').style.display = 'none';
+    window.scrollTo(0, 0);
+}
     </script>
 </body>
 
 </html>
+
 
